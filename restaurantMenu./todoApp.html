@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *,::before,::after{
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    html{
+        font-family: sans-serif;
+    }
+    body{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+        align-items:center;
+        height: 100vh;
+
+    }
+    ul{
+        /* display:flex; */
+        gap: 10px;
+    }
+    li{
+        list-style-type: none;
+        text-transform: capitalize;
+        display: flex;
+    }
+    .main{
+        color:black;
+    }
+</style>
+<body>
+    <h1> My TODO APP</h1>
+   <div class="main">
+     <input type="text" placeholder="Add new task" id="getText">
+     <button type="submit" id="add">Ajouter</button>
+     <ul class="listItem" id="listItem">
+     </ul>
+   </div>
+</body>
+        <script>
+              function putTask(){
+                  const ulElement=document.querySelector('.listItem')
+                  const getText=document.querySelector('#getText').value.trim();
+                  if (getText!=="") {
+                        const newTask=document.createElement('li');
+                        newTask.textContent=getText;
+                        ulElement.appendChild(newTask);
+                        document.querySelector('#getText').value="";
+                    //Ajout du bouton modifier
+                        const alterItem=document.createElement('button');
+                              alterItem.textContent='Modifier';
+                              newTask.appendChild(alterItem);
+                              alterItem.addEventListener('click',function(){
+                        const newTaskName=prompt('Entrer une autre tâche').trim();
+                                     if (newTaskName!==""){
+                                         newTask.textContent=newTaskName;
+                                         newTask.appendChild(alterItem);
+                                         newTask.appendChild(deleteItem);
+                                     }
+                                     else {
+                                        return
+                                     }
+                              })
+                    //ajout du button supprimer
+                        const deleteItem=document.createElement('button');
+                              deleteItem.textContent='supprimer';
+                              newTask.appendChild(deleteItem);
+                              deleteItem.addEventListener('click',()=>{
+                              ulElement.removeChild(newTask);
+                              newTask.removeChild(alterItem);
+                              newTask.removeChild(deleteItem);
+                              })      
+                  } else {
+                        return;
+                  }
+              }
+        const add=document.getElementById('add');
+        add.addEventListener('click',putTask)           
+        </script>
+</html>
