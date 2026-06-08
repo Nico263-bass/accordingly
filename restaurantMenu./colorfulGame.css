@@ -37,12 +37,26 @@ h1{
     margin-top: 15px;
 }
 .img{
-    background-color:var(--primary);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 3rem;
-    cursor: pointer;
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: 3rem;
+cursor: pointer;
+background-color:var(--primary);
+}
+.overlayCards{
+position:relative;
+}
+.overlayCards::before {
+  content:'?';
+  color: red;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  background-color:var(--primary)
 }
 /* la classe anim est ajouté dynamiquement avrec Js aux div.img */
 /******************************animation pour le div parent img */
@@ -76,7 +90,6 @@ h1{
         color:blue;
     }
 }
-
 
 /* *********************************************************************** */
 /* *********************animation pour le span smile to avoid the rotation of the text */

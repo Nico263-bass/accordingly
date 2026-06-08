@@ -6,11 +6,11 @@ const divMain=document.querySelector('.main');
 list.forEach(element=>{
 const divImg=document.createElement('div');
       divImg.classList.add('img');
+      divImg.classList.add('overlayCards');
       divMain.appendChild(divImg);
 const spanSmile= document.createElement('span');
-      spanSmile.classList.add('smile');    
+      spanSmile.classList.add('smile');
       divImg.appendChild(spanSmile);
-      spanSmile.innerHTML=element;
 })
 //Algo de Fisher-Yates pour le tirage aléatoire des cartes
 function fishY(tabArray){
@@ -22,14 +22,15 @@ return tabArray;
 }
 /**********Application de l'Algo de fisher Yates **************/
 // Function exécutant le compteur et l'algorithme de Fishr-Yates
-
+const divImg=document.querySelector('.img');
 function compteurAndFy(){
-return new Promise ((resolve)=>{
-                    
+return new Promise ((resolve)=>{       
 const    newList=fishY([...list]);
+/* le melange des cartes se fait à ce niveau */
 const    spanSmile= document.querySelectorAll('.smile');
          spanSmile.forEach((element,index)=>{
-         element.innerHTML=newList[index];})    
+         element.innerHTML=newList[index]
+        })    
 const    spanTime=document.querySelector('#time');    
          spanTime.textContent='';
 let      time=10;
@@ -39,13 +40,17 @@ const    compteur=setInterval(()=>{
          if (time===0){
             clearInterval(compteur);
             spanTime.textContent='Temps épuisé!'; 
-            resolve(()=>{compteurEncours=false;});  
+            const divImg=document.querySelector('.img');
+            divImg.classList.remove('overlayCards');
+            resolve(()=>{compteurEncours=false;}
+            
+        );  
         } },1000); 
     })
 }
 const btnStart=document.querySelector('#btnStart');
 let compteurEncours=false; 
-       btnStart.addEventListener('click',async ()=>{
+const asyncCompteur=async()=>{
    try {
            if(compteurEncours){
                return
@@ -58,4 +63,10 @@ let compteurEncours=false;
    } catch (error) {
        console.error(`Une erreur s'est produite ${error}`)
    }
-})
+}
+btnStart.addEventListener('click',asyncCompteur);
+
+
+/*  const divImg=document.querySelector('.img');
+       divImg.forEach(element=>{
+       element.classList.add('overlayCards')});  */
