@@ -57,7 +57,7 @@ const asyncCompteur=async()=>{
                  compteurEncours=true;
                  const attente=await compteurAndFy();
                  attente();
-
+r
        }
    } catch (error) {
        console.error(`Une erreur s'est produite ${error}`)
@@ -74,5 +74,4 @@ btnStart.addEventListener('click',async ()=>{
           divImg.forEach(element=>{
             element.classList.toggle('overlayCards') /* c'est ici que je crois qu'il y a le problème, au premier click, la classe overlayCards est retirée directement au premier click */
           });
-      
 })
