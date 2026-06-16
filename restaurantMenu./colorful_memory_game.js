@@ -37,11 +37,7 @@ const    compteur=setInterval(()=>{
          if (time===0){
             clearInterval(compteur);
             spanTime.textContent='Temps épuisé!';
-            resolve(()=>{compteurEncours=false;
-                         const divImg=document.querySelectorAll('.img');
-                               divImg.forEach(element=>{
-                               element.classList.remove('overlayCards');/* On retire la classe overlay */
-                               })}  
+            resolve(()=>{compteurEncours=false}  
         );  
         } },1000); 
     })
@@ -57,21 +53,34 @@ const asyncCompteur=async()=>{
                  compteurEncours=true;
                  const attente=await compteurAndFy();
                  attente();
-r
+
        }
    } catch (error) {
        console.error(`Une erreur s'est produite ${error}`)
    }
 }
-        /*On crée une fonction qui retourne une promesse pour contrôler l'overlay  */
-btnStart.addEventListener('click',async()=>{
-    await asyncCompteur();
-});
-/* function Retirer le Overlay pour voir la carte */;
-btnStart.addEventListener('click',async ()=>{
-    const awaitAsyncCompteur= await asyncCompteur()/* je m'entendais à ce que l'overlay soit retiré à la fin de la fonction asyncCompteur même lors du premier click */;
+/*On crée une fonction qui retourne une promesse pour contrôler l'overlay  */
+const retraitOverlay=()=>{
+    const divimg=document.querySelectorAll('.img');
+          divimg.forEach(element=>{
+            element.classList.remove('overlayCards');
+          })
+}
+const premierClick=async()=>{
+      await asyncCompteur();
+      retraitOverlay();
+}
+const putOverlayAgain=()=>{
     const divImg=document.querySelectorAll('.img');
-          divImg.forEach(element=>{
-            element.classList.toggle('overlayCards') /* c'est ici que je crois qu'il y a le problème, au premier click, la classe overlayCards est retirée directement au premier click */
-          });
-})
+           divImg.forEach(element=>{
+            element.classList.add('overlayCards')
+           })
+}
+/* function Retirer le Overlay pour voir la carte */;
+ btnStart.addEventListener('click',premierClick);
+
+ const secondClick=async()=>{
+      await premierClick();
+      putOverlayAgain();
+ }
+ btnStart.addEventListener('click',secondClick);
