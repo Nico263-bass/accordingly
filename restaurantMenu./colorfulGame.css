@@ -76,7 +76,19 @@ h1{
         color:blue;
     }
 }
-
-
+.overlayCards{
+    position: relative;
+}
+.overlayCards::after{
+    content: '?';
+    color:red;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F7F7FF;
+    font-size: 2rem;
+}
 /* *********************************************************************** */
 /* *********************animation pour le span smile to avoid the rotation of the text */
