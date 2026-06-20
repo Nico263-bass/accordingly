@@ -44,15 +44,20 @@ const    compteur=setInterval(()=>{
 /* *********************************************************************** */
 let etatdeJeu='startingParty' /* startingParty, jeuEncours, finDelaPartie */
 /* ************************************************************************/
-    const retraitOverlay=(element)=>{
-    element.classList.remove('overlayCards')
-    }
+  const handlers=[]; /* variable qui va contenir chaque copie de l'eventListner de DivImg */
+  function controlOverlay(){
+                const retraitOverlay=(element)=>{
+                    element.classList.remove('overlayCards');
+                }
+                return retraitOverlay;
+            }
+    const callbackOverlay=controlOverlay();
 /* ***********************************************************************/
 const putOverlayAgain=()=>{
     const divImg=document.querySelectorAll('.img');
            divImg.forEach(element=>{
             element.classList.add('overlayCards')
-           })}
+         })}
 
 const asyncCompteur=async()=>{
            if(etatdeJeu!=='startingParty'){
@@ -61,15 +66,21 @@ const asyncCompteur=async()=>{
            else{
                  putOverlayAgain();
                  etatdeJeu='jeuEncours';
-                const divImg=document.querySelectorAll('.img');
-                      divImg.forEach(index=>{
-                        index.addEventListener('click',()=>{retraitOverlay(index)});
+                 const divImg=document.querySelectorAll('.img');
+                      divImg.forEach(element=>{
+                            const handler=()=>{
+                                callbackOverlay(element);
+                            }
+                            element.addEventListener('click',handler);
+                            handlers.push(handler);
                       })
-                
                  await lancerParty();
-
+                 /* On retire l'event listner à ce niveau après la fin du compteur */
+                 divImg.forEach((element,index)=>{
+                        element.removeEventListener('click',handlers[index]);
+                 })
+                 etatdeJeu='partieTerminée';
        }
    }
-
 const btnStart=document.querySelector('#btnStart');
-btnStart.addEventListener('click',asyncCompteur)
+btnStart.addEventListener('click',asyncCompteur);
