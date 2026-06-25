@@ -1,0 +1,264 @@
+Index: restaurantMenu./colorful_memory_game.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>const list=[\"&#128512;\",\"&#128513;\",\"&#128514;\",\"&#128590;\",\"&#128122;\",\"&#128663;\",\"&#128512;\",\"&#128513;\",\"&#128514;\",\"&#128590;\",\"&#128122;\",\"&#128663;\"];\n/************************************************ */\nconst divMain=document.querySelector('.main');\n      list.forEach(element=>{\n            const divImg=document.createElement('div');\n                  divImg.classList.add('img');\n                  divMain.appendChild(divImg);\n            const spanSmile= document.createElement('span');\n                  spanSmile.classList.add('smile');    \n                  divImg.appendChild(spanSmile);\n                  spanSmile.innerHTML=element;\n})\n//Algo de Fisher-Yates pour le tirage aléatoire des cartes\nfunction fishY(tabArray){\n    for (let i =tabArray.length-1; i>0; i--) {\n            const j=Math.floor(Math.random()*(1+i));\n            [tabArray[i],tabArray[j]]=[tabArray[j],tabArray[i]];\n    }\n    return tabArray;\n}\n/**********Application de l'Algo de fisher Yates **************/\n// const btnStart=document.querySelector('#btnStart');\nconst btnStart=document.querySelector('#btnStart');\n               btnStart.addEventListener('click',()=>{\n               const newList=fishY([...list]);\n               const spanSmile= document.querySelectorAll('.smile');\n               spanSmile.forEach((element,index)=>{\n               element.innerHTML=newList[index];\n       })    \n });\n const spanTime=document.querySelector('#time');    \n       time.textContent='';\n       btnStart.addEventListener('click',()=>{\n         let    time=20;\n         const  compteur=setInterval(()=>{ \n                time--;\n                spanTime.textContent=time;\n                if (time===0){\n                    clearInterval(compteur);\n                    alert('Temps épuisé!');\n                    spanTime.textContent='';\n                }\n            },1000)\n       })\n    \n           \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Fonction Asynchrone pour empếcher que le compteur à nouveau pendant qu'il est déjà en marhce \nasync function startGame(){ \n    try {\n        const messageSioui = await new Promise((resolve, reject) => {\n            resolve(() => {\n                let time = 60;\n                const timing = setInterval(() => {\n                    time--;\n                    let chrono = document.querySelector('#time');\n                    chrono.textContent = `${time}s`;\n                    if (time === 0) {\n                        clearInterval(timing);\n                        alert('Fin de la partie');\n                        chrono.textContent = '60s';\n                    }\n                    const btnEnd = document.querySelector('#btnEnd');\n                    btnEnd.addEventListener('click', () => {\n                        clearInterval(timing);\n                        chrono.textContent = '60s';\n                        btnStart.removeEventListener('click');\n                    });\n                }, 1000);\n            });\n            reject(`Une erreur s'est produite!`);\n          }\n    )}catch (messageSinon) {\n        console.log(`échec de l'opération ${messageSinon}`);\n    }\n/****************Fonction chrono du jeu et start game****************\n\nlet compteurEncours=false;\n    btnStart.addEventListener('click',async () => {\n        if (compteurEncours){\n            return\n        }\n        compteurEncours=true;\n        await startGame();\n        compteurEncours=false;\n    })\n}*/\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/restaurantMenu./colorful_memory_game.js b/restaurantMenu./colorful_memory_game.js
+--- a/restaurantMenu./colorful_memory_game.js	(revision f96eeb33f2eda3b426ecb7bec9f0944ddd8f8c8e)
++++ b/restaurantMenu./colorful_memory_game.js	(date 1781833785978)
+@@ -1,136 +1,77 @@
+-const list=["&#128512;","&#128513;","&#128514;","&#128590;","&#128122;","&#128663;","&#128512;","&#128513;","&#128514;","&#128590;","&#128122;","&#128663;"];
++const list=["&#128512;","&#128513;","&#128514;","&#128590;","&#128122;"
++    ,"&#128663;","&#128512;","&#128513;","&#128514;","&#128590;",
++    "&#128122;","&#128663;"];
+ /************************************************ */
+ const divMain=document.querySelector('.main');
+-      list.forEach(element=>{
+-            const divImg=document.createElement('div');
+-                  divImg.classList.add('img');
+-                  divMain.appendChild(divImg);
+-            const spanSmile= document.createElement('span');
+-                  spanSmile.classList.add('smile');    
+-                  divImg.appendChild(spanSmile);
+-                  spanSmile.innerHTML=element;
++list.forEach(element=>{
++const divImg=document.createElement('div');
++      divImg.classList.add('img');
++      divImg.classList.add('overlayCards');
++      divMain.appendChild(divImg);
++const spanSmile= document.createElement('span');
++      spanSmile.classList.add('smile');
++      divImg.appendChild(spanSmile);
+ })
+ //Algo de Fisher-Yates pour le tirage aléatoire des cartes
+ function fishY(tabArray){
+-    for (let i =tabArray.length-1; i>0; i--) {
+-            const j=Math.floor(Math.random()*(1+i));
+-            [tabArray[i],tabArray[j]]=[tabArray[j],tabArray[i]];
+-    }
+-    return tabArray;
++for (let i =tabArray.length-1; i>0; i--) {
++        const j=Math.floor(Math.random()*(1+i));
++        [tabArray[i],tabArray[j]]=[tabArray[j],tabArray[i]];
++}
++return tabArray;
+ }
+ /**********Application de l'Algo de fisher Yates **************/
+-// const btnStart=document.querySelector('#btnStart');
+-const btnStart=document.querySelector('#btnStart');
+-               btnStart.addEventListener('click',()=>{
+-               const newList=fishY([...list]);
+-               const spanSmile= document.querySelectorAll('.smile');
+-               spanSmile.forEach((element,index)=>{
+-               element.innerHTML=newList[index];
+-       })    
+- });
+- const spanTime=document.querySelector('#time');    
+-       time.textContent='';
+-       btnStart.addEventListener('click',()=>{
+-         let    time=20;
+-         const  compteur=setInterval(()=>{ 
+-                time--;
+-                spanTime.textContent=time;
+-                if (time===0){
+-                    clearInterval(compteur);
+-                    alert('Temps épuisé!');
+-                    spanTime.textContent='';
+-                }
+-            },1000)
+-       })
+-    
+-           
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
++// Function exécutant le compteur et l'algorithme de Fishr-Yates
++function lancerPartie(){
++return new Promise ((resolve)=>{       
++const    newList=fishY([...list]);/* le melange des cartes se fait à ce niveau */
++const    spanSmile= document.querySelectorAll('.smile');
++         spanSmile.forEach((element,index)=>{
++         element.innerHTML=newList[index]
++        })
++let      time=5; 
++const    spanTime=document.querySelector('#time');    
++const    compteur=setInterval(()=>{
++         time--;
++         spanTime.textContent=time;
++         if (time===0){
++            clearInterval(compteur);
++            spanTime.textContent='Temps épuisé!';
++            resolve(etatDejeu="commencerParty");  
++        } },1000); 
++    })
++}
++const btnStart=document.querySelector('#btnStart'); /* boutton start */
++let   etatDejeu="commencerParty"; /* Etat de jeu : startingParty,jeu_en_cours, fin_de_la_partie */
+ 
++   const controlListner=(element)=>{
+ 
+-
+-
+-
+-
+-
+-
+-
+-
+-/* Fonction Asynchrone pour empếcher que le compteur à nouveau pendant qu'il est déjà en marhce 
+-async function startGame(){ 
+-    try {
+-        const messageSioui = await new Promise((resolve, reject) => {
+-            resolve(() => {
+-                let time = 60;
+-                const timing = setInterval(() => {
+-                    time--;
+-                    let chrono = document.querySelector('#time');
+-                    chrono.textContent = `${time}s`;
+-                    if (time === 0) {
+-                        clearInterval(timing);
+-                        alert('Fin de la partie');
+-                        chrono.textContent = '60s';
+-                    }
+-                    const btnEnd = document.querySelector('#btnEnd');
+-                    btnEnd.addEventListener('click', () => {
+-                        clearInterval(timing);
+-                        chrono.textContent = '60s';
+-                        btnStart.removeEventListener('click');
+-                    });
+-                }, 1000);
+-            });
+-            reject(`Une erreur s'est produite!`);
+-          }
+-    )}catch (messageSinon) {
+-        console.log(`échec de l'opération ${messageSinon}`);
+-    }
+-/****************Fonction chrono du jeu et start game****************
++      const retraitOverlay=()=>{
++            element.classList.remove('overlayCards');
++         }
++         retraitOverlay();
++   }
++const putOverlayAgain=()=>{
++       const divImg=document.querySelectorAll('.img');
++            divImg.forEach(element=>{
++          element.classList.add('overlayCards')
++          })}
++const verifyEtatDeJeu=async()=>{
+ 
+-let compteurEncours=false;
+-    btnStart.addEventListener('click',async () => {
+-        if (compteurEncours){
+-            return
+-        }
+-        compteurEncours=true;
+-        await startGame();
+-        compteurEncours=false;
+-    })
+-}*/
++           if(etatDejeu !=="commencerParty"){
++               return
++           }
++           else{
++                 putOverlayAgain();
++                 etatDejeu="jeuEncours";
++                //  retraitOverlay()
++                const divImg=document.querySelectorAll('.img');
++                      divImg.forEach(index=>{
++                      index.addEventListener('click',()=>{controlListner(index)});
++                })
++                 await lancerPartie();  /* l'Etat de jeu est à nouveau --commencerPartie-- */
++                 /* On va écrire le coeur du jeu quelque part Ici */
+ 
++             }
++        }
++btnStart.addEventListener('click',verifyEtatDeJeu);
+\ No newline at end of file
+Index: restaurantMenu./colorfulGame.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>*,html,::before,::after{\n    box-sizing: content-box;\n    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;\n    --BGC:#F7F7FF; \n    --primary:var(--BGC);\n    /* outline: 1px solid red; */\n}\nbody{\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    height: 100vh;\n    color:#000;\n}\nh1{\n    text-transform: uppercase;\n}\n.container{\n    width: 600px;\n    height: 600px;\n    background-color:#ffffff;\n    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;\n}\n.main{\n    height: 80%;\n    display: grid;\n    grid-template-columns: repeat(4,1fr);\n    grid-template-rows: repeat(3,1fr);\n    gap: 5px;\n    perspective:500px;\n}\n.score{\n    /* background-color:var(--primary); */\n    height: 20%;\n    color:#ba3030;\n    margin-top: 15px;\n}\n.img{\n    background-color:var(--primary);\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    font-size: 3rem;\n    cursor: pointer;\n}\n/* la classe anim est ajouté dynamiquement avrec Js aux div.img */\n/******************************animation pour le div parent img */\n.anim{\n      animation: rotation 0.5s ease-in-out forwards;\n      \n}\n@keyframes rotation {\n    0%{\n        transform: rotateY(0deg);\n    }\n    50%{\n        background-color: #f7c4c4;\n    }\n    75%{\n        \n        background-color: rgb(247, 64, 64);\n    }\n    100%{\n        transform: rotateY(180deg);\n    }\n}\n.smilerotation{\n    animation: antirota 0.5 ease-in-out   forwards;\n}\n@keyframes antirota {\n    from{\n        color:red;\n    }\n    to {\n        color:blue;\n    }\n}\n\n\n/* *********************************************************************** */\n/* *********************animation pour le span smile to avoid the rotation of the text */\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/restaurantMenu./colorfulGame.css b/restaurantMenu./colorfulGame.css
+--- a/restaurantMenu./colorfulGame.css	(revision f96eeb33f2eda3b426ecb7bec9f0944ddd8f8c8e)
++++ b/restaurantMenu./colorfulGame.css	(date 1781592125924)
+@@ -37,12 +37,26 @@
+     margin-top: 15px;
+ }
+ .img{
+-    background-color:var(--primary);
+-    display: flex;
+-    justify-content: center;
+-    align-items: center;
+-    font-size: 3rem;
+-    cursor: pointer;
++display: flex;
++justify-content: center;
++align-items: center;
++font-size: 3rem;
++cursor: pointer;
++background-color:var(--primary);
++}
++.overlayCards{
++position:relative;
++}
++.overlayCards::before {
++  content:'?';
++  color: red;
++  position: absolute;
++  inset: 0;
++  display: flex;
++  justify-content: center;
++  align-items: center;
++  font-size: 2rem;
++  background-color:var(--primary)
+ }
+ /* la classe anim est ajouté dynamiquement avrec Js aux div.img */
+ /******************************animation pour le div parent img */
+@@ -77,6 +91,5 @@
+     }
+ }
+ 
+-
+ /* *********************************************************************** */
+ /* *********************animation pour le span smile to avoid the rotation of the text */
