@@ -87,7 +87,7 @@ h1{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #F7F7FF;
+    background-color:var(--primary);
     font-size: 2rem;
 }
 /* *********************************************************************** */
